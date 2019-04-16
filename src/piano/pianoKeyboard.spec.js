@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import PianoKeyboard from './pianoKeyboard.component';
+import { PianoKeyboard } from './pianoKeyboard.component';
 
 describe('PIANO KEYBOARD', () => {
   const wrapper = shallow(<PianoKeyboard />);

@@ -1,9 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import './pianoKeyboard.scss';
 
 import MusicLog from './musicLog.component';
 
-class PianoKeyboard extends React.Component {
+export class PianoKeyboard extends React.Component {
   state = {
     notesPlayed: [],
   }
@@ -37,4 +38,10 @@ class PianoKeyboard extends React.Component {
   }
 }
 
-export default PianoKeyboard;
+const mapStateToProps = state => {
+  return {
+    notesToPlay: state.musicReducer.notesToPlay
+  }
+}
+
+export default connect(mapStateToProps)(PianoKeyboard);
