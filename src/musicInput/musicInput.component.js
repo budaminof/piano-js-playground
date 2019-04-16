@@ -1,7 +1,9 @@
 import React from 'react';
-import './musicInput.scss';
+import { connect } from 'react-redux';
+import { submitMusicToPlay } from '../redux/actions';
 
-class MusicInput extends React.Component {
+import './musicInput.scss';
+export class MusicInput extends React.Component {
   state = {
     notes: 'AEC',
     placeholder: 'AEC',
@@ -22,6 +24,7 @@ class MusicInput extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault()
+    this.props.submitMusicToPlay(this.state.notes);
   }
 
 
@@ -36,4 +39,10 @@ class MusicInput extends React.Component {
   }
 }
 
-export default MusicInput;
+const mapDispatchToProps = dispatch => {
+  return {
+    submitMusicToPlay: data => dispatch(submitMusicToPlay(data)),
+  }
+}
+
+export default connect(null, mapDispatchToProps)(MusicInput);

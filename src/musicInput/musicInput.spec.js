@@ -1,11 +1,15 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import MusicInput from './musicInput.component';
+import { MusicInput } from './musicInput.component';
 
-describe('MUSIC INPUT', () => {
+fdescribe('MUSIC INPUT', () => {
+  let wrapper;
+  const mockSubmitMusic = jest.fn();
+  beforeEach(() => {
+    wrapper = shallow(<MusicInput submitMusicToPlay={mockSubmitMusic} />);
+  })
 
   it('onChange should accept only valid notes from the octave', () => {
-    const wrapper = shallow(<MusicInput />);
     const instance = wrapper.instance();
 
     instance.handleChange({ target: { value: 'A' } });
@@ -22,7 +26,6 @@ describe('MUSIC INPUT', () => {
   })
 
   it('onChange should transform all notes to uppercase', () => {
-    const wrapper = shallow(<MusicInput />);
     const instance = wrapper.instance();
 
     instance.handleChange({ target: { value: 'e' } });
@@ -35,13 +38,14 @@ describe('MUSIC INPUT', () => {
     expect(instance.state.notes).toBe('AB');
   })
 
-  it('should disable the PLAY button if there are no notes', () => {
-    const wrapper = shallow(<MusicInput />);
+  it.only('should disable the PLAY button if there are no notes', () => {
     const instance = wrapper.instance();
 
     instance.handleChange({ target: { value: 'ABC' } });
-    expect(wrapper.find('button').is('[disabled]')).toBe(false);
+    expect(!instance.state.notes.length).toBe(false);
+    expect(wrapper.find('button').prop('disabled')).toBe(false);
+
     instance.handleChange({ target: { value: '' } });
-    expect(wrapper.find('button').is('[disabled]')).toBe(true);
+    expect(wrapper.find('button').prop('disabled')).toBe(true);
   })
 });
