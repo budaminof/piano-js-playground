@@ -1,0 +1,14 @@
+@import '../_colors.scss';
+
+.music-log {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  max-width: 70vw;
+  color: $black;
+  font-size: 30px;
+
+  span {
+    margin-right: 10px;
+  }
+}
