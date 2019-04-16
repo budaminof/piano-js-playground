@@ -14,8 +14,8 @@
     color: $black;
     font-size: 15px;
     max-width: 500px;   
-    margin-bottom: 40px;
-    margin-top: 40px;
+    margin-bottom: 30px;
+    margin-top: 20px;
     text-transform: uppercase;
     height: 50px;
     border: 1px solid $grey-border-1;
@@ -23,10 +23,11 @@
 
   button {
     text-transform: uppercase;
-    padding: 10px 20px;
+    padding: 15px 55px;
     margin: 0 auto;
-    font-size: 15px;
+    font-size: 20px;
     font-weight: 500;
+    letter-spacing: 4px;
     color: $white;
     box-shadow: 0 0 20px $white-box-shadow;
     transition: 0.5s;
@@ -37,5 +38,15 @@
 
   button:hover {
     background-position: right center;
+  }
+
+  button:disabled {
+    background: radial-gradient(circle, rgba(205,206,207,1) 0%, rgba(170,201,190,1) 91%);
+  }
+  
+  p {
+    color: $red;
+    height: 10px;
+    margin-bottom: 30px;
   }
 }
