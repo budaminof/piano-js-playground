@@ -6,7 +6,6 @@ import './musicInput.scss';
 export class MusicInput extends React.Component {
   state = {
     notes: 'AEC',
-    placeholder: 'AEC',
     allowedNoted: ['C', 'D', 'E', 'F', 'G', 'A', 'B'],
     showError: false,
   }
@@ -24,9 +23,9 @@ export class MusicInput extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault()
+    this.setState({ showError: false })
     this.props.submitMusicToPlay(this.state.notes);
   }
-
 
   render() {
     return (
