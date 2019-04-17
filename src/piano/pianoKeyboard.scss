@@ -1,10 +1,17 @@
 @import '../_colors.scss';
 
+.keyboard-wrapper {
+  margin: 0 auto; 
+  display: flex;
+  justify-content: center;
+}
+
 ul {
   list-style-type: none;
   display: flex;
   justify-content: center;
-  margin-left: -40px;
+  margin: 0;
+  padding: 0;
 
   li {
     flex-direction: row;
@@ -40,6 +47,10 @@ ul {
     0 0 3px $black-box-shadow-1;
 	 background: linear-gradient(to bottom, $white 0%, $green-highlight 100%);
   }
+  
+  .active {
+    background: linear-gradient(to bottom, $white 0%, $green-highlight 100%);
+  }
 
   .black {
     z-index: 10;
@@ -53,13 +64,13 @@ ul {
     background: linear-gradient(45deg, $black 0%, $grey-border-3 100%);
   }
 
-  // .black:active { 
-  //   box-shadow: -1px -1px 2px $white-box-shadow-2 inset, 
-  //     0 -2px 2px 3px $black-box-shadow-3 inset, 
-  //     0 1px 2px $black-box-shadow-2;
-	//   background: linear-gradient(to right, $grey-border-4 0%, $green-highlight 100%);
-  // } 
-  
+  .black:active { 
+    box-shadow: -1px -1px 2px $white-box-shadow-2 inset, 
+      0 -2px 2px 3px $black-box-shadow-3 inset, 
+      0 1px 2px $black-box-shadow-2;
+	  background: linear-gradient(to right, $grey-border-4 0%, $black 100%);
+  } 
+
   li h2 {
     margin-top: auto;
   }
