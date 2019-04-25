@@ -8,8 +8,8 @@ describe('PIANO KEYBOARD', () => {
 
   it('should add notes to queue on click event', () => {
     expect(instance.state.notesPlayed).toHaveLength(0);
-    instance.addNotesToQueue('E');
-    instance.addNotesToQueue('G');
+    instance.addNoteToQueue('E');
+    instance.addNoteToQueue('G');
     expect(instance.state.notesPlayed).toHaveLength(2);
   });
 });

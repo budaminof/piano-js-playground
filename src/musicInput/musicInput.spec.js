@@ -1,12 +1,19 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import { MusicInput } from './musicInput.component';
 
-fdescribe('MUSIC INPUT', () => {
+describe('MUSIC INPUT', () => {
   let wrapper;
   const mockSubmitMusic = jest.fn();
+  const mockStartPlayingNotes = jest.fn();
+  const mockFinishPlayingNotes = jest.fn();
   beforeEach(() => {
-    wrapper = shallow(<MusicInput submitMusicToPlay={mockSubmitMusic} />);
+    wrapper = mount(<MusicInput
+      submitMusicToPlay={mockSubmitMusic}
+      startPlayingNotes={mockStartPlayingNotes}
+      finishPlayingNotes={mockFinishPlayingNotes}
+      playMusic={false}
+    />);
   })
 
   it('onChange should accept only valid notes from the octave', () => {
@@ -38,14 +45,22 @@ fdescribe('MUSIC INPUT', () => {
     expect(instance.state.notes).toBe('AB');
   })
 
-  it.only('should disable the PLAY button if there are no notes', () => {
+  it('should disable the PLAY button if there are no notes', () => {
     const instance = wrapper.instance();
 
     instance.handleChange({ target: { value: 'ABC' } });
     expect(!instance.state.notes.length).toBe(false);
     expect(wrapper.find('button').prop('disabled')).toBe(false);
 
-    instance.handleChange({ target: { value: '' } });
+    wrapper.setState({ notes: '' });
     expect(wrapper.find('button').prop('disabled')).toBe(true);
+  })
+
+  it('should disable the PLAY button while notes are playing', () => {
+    const instance = wrapper.instance();
+    instance.handleSubmit({ preventDefault: jest.fn() });
+    // console.log(wrapper.props().playMusic);
+
+    // expect(wrapper.props().playMusic).to.equal(true);
   })
 });

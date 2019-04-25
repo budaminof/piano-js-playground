@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { submitMusicToPlay } from '../redux/actions';
+import { startPlaying, finishPlaying, submitMusicToPlay } from '../redux/actions';
 
 import './musicInput.scss';
 export class MusicInput extends React.Component {
@@ -22,9 +22,19 @@ export class MusicInput extends React.Component {
   }
 
   handleSubmit = (event) => {
-    event.preventDefault()
-    this.setState({ showError: false })
-    this.props.submitMusicToPlay(this.state.notes);
+    event.preventDefault();
+    this.setState({ showError: false });
+    let notesArr = this.state.notes.split('').length;
+    let i = 0;
+    this.props.startPlayingNotes();
+    let playNotesInterval = setInterval(() => {
+      if (i === notesArr) {
+        this.props.finishPlayingNotes();
+        return clearInterval(playNotesInterval)
+      };
+      this.props.submitMusicToPlay(this.state.notes[i]);
+      i++;
+    }, 1100);
   }
 
   render() {
@@ -32,16 +42,24 @@ export class MusicInput extends React.Component {
       <form className="music-input" onSubmit={this.handleSubmit}>
         <input type="text" size="40" value={this.state.notes} onChange={this.handleChange} />
         {this.state.showError ? <p>You can only use the notes displayed on the piano.</p> : <p></p>}
-        <button type="submit" disabled={!this.state.notes.length}>play</button>
+        <button type="submit" disabled={!this.state.notes.length || this.props.playMusic}>play</button>
       </form>
     )
   }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapStateToProps = state => {
   return {
-    submitMusicToPlay: data => dispatch(submitMusicToPlay(data)),
+    playMusic: state.musicReducer.playMusic,
   }
 }
 
-export default connect(null, mapDispatchToProps)(MusicInput);
+const mapDispatchToProps = dispatch => {
+  return {
+    submitMusicToPlay: notes => dispatch(submitMusicToPlay(notes)),
+    startPlayingNotes: () => dispatch(startPlaying()),
+    finishPlayingNotes: () => dispatch(finishPlaying()),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MusicInput);
